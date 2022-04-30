@@ -1,31 +1,64 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, SafeAreaView, Alert, Button } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  SafeAreaView,
+  Alert,
+  Button,
+  Platform,
+  StatusBar,
+  View,
+} from "react-native";
+import {
+  useDimensions,
+  useDeviceOrientation,
+} from "@react-native-community/hooks";
 
 export default function App() {
+  const { landscape } = useDeviceOrientation();
   return (
-    <SafeAreaView style={[styles.container, containerStyle]}>
-      <Button
-        color="orange"
-        title="Click Me"
-        onPress={() =>
-          // Alert.alert("My title", "My message", [
-          //   { text: "Yes", onPress: () => console.log("Yes") },
-          //   { text: "No", onPress: () => console.log("No") },
-          // ])
-          Alert.prompt("My title", "My message", (text) => console.log(text))
-        }
-      />
-    </SafeAreaView>
+    <View
+      style={{
+        backgroundColor: "#fff",
+        flex: 1,
+        flexDirection: "row",
+      }}
+    >
+      <View
+        style={{
+          backgroundColor: "dodgerblue",
+          width: 100,
+          height: 100,
+          // flex: 1,
+        }}
+      ></View>
+      <View
+        style={{
+          backgroundColor: "gold",
+          width: 100,
+          height: 100,
+          // flex: 1,
+        }}
+      ></View>
+      <View
+        style={{
+          backgroundColor: "tomato",
+          width: 100,
+          height: 100,
+          // flex: 1,
+        }}
+      ></View>
+    </View>
   );
 }
 
-const containerStyle = { backgroundColor: "red" };
+const containerStyle = { backgroundColor: "skyblue" };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });
