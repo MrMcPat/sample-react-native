@@ -1,64 +1,50 @@
+import { useState } from "react";
 import {
-  Dimensions,
   StyleSheet,
-  SafeAreaView,
-  Alert,
-  Button,
   Platform,
   StatusBar,
+  Text,
   View,
+  FlatList,
 } from "react-native";
-import {
-  useDimensions,
-  useDeviceOrientation,
-} from "@react-native-community/hooks";
+import Header from "./components/Header";
+import TodoItem from "./components/TodoItem";
 
 export default function App() {
-  const { landscape } = useDeviceOrientation();
+  const [todos, setTodos] = useState([
+    { text: "buy coffee", key: "1" },
+    { text: "create an app", key: "2" },
+    { text: "play on the switch", key: "3" },
+  ]);
+
   return (
-    <View
-      style={{
-        backgroundColor: "#fff",
-        flex: 1,
-        flexDirection: "row",
-      }}
-    >
-      <View
-        style={{
-          backgroundColor: "dodgerblue",
-          width: 100,
-          height: 100,
-          // flex: 1,
-        }}
-      ></View>
-      <View
-        style={{
-          backgroundColor: "gold",
-          width: 100,
-          height: 100,
-          // flex: 1,
-        }}
-      ></View>
-      <View
-        style={{
-          backgroundColor: "tomato",
-          width: 100,
-          height: 100,
-          // flex: 1,
-        }}
-      ></View>
+    <View style={styles.container}>
+      <Header />
+      <View style={styles.content}>
+        {/* todo form */}
+        <View style={styles.list}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => <TodoItem todo={item} />}
+          />
+        </View>
+      </View>
     </View>
   );
 }
-
-const containerStyle = { backgroundColor: "skyblue" };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     // alignItems: "center",
     // justifyContent: "center",
+  },
+  content: {
+    padding: 40,
+  },
+  list: {
+    marginTop: 20,
   },
 });
